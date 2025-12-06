@@ -80,8 +80,6 @@ export async function generatePatientTimeline(
   }>;
 }> {
   try {
-    const ai = getGeminiClient();
-
     const prompt = `You are analyzing a health document. Extract ALL information ONLY from the provided text below. Do NOT use any external knowledge, medical databases, or general medical information. Do NOT make up, infer, or assume any data that isn't explicitly stated in the text.
 
 CRITICAL: All output must be derived exclusively from the user-provided text. Do not reference external data sources.
@@ -239,8 +237,6 @@ export async function generateDoctorSnapshot(
   visitPrep: string[];
 }> {
   try {
-    const ai = getGeminiClient();
-
     const prompt = `You are analyzing a health document to create a doctor snapshot. Extract ALL information ONLY from the provided text below. Do NOT use any external knowledge, medical databases, or general medical information. Do NOT make up, infer, or assume any data that isn't explicitly stated in the text.
 
 CRITICAL: All output must be derived exclusively from the user-provided text. Do not reference external data sources.
@@ -408,8 +404,6 @@ export async function generateCardiologyInsights(
   questionsForDoctor: string[];
 }> {
   try {
-    const ai = getGeminiClient();
-
     const prompt = `You are analyzing a health document for cardiology insights. Extract ALL information ONLY from the provided text below. Do NOT use any external knowledge, medical databases, or general medical information. Do NOT make up, infer, or assume any data that isn't explicitly stated in the text.
 
 CRITICAL: All output must be derived exclusively from the user-provided text. Do not reference external data sources.
