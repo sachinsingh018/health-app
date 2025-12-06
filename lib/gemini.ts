@@ -56,7 +56,7 @@ export async function generatePatientTimeline(
 }> {
   try {
     const genAI = getGeminiClient();
-    const model = genAI.getGenerativeModel({ model: "gemini-pro" });
+    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
     const prompt = `You are analyzing a health document. Extract ALL information ONLY from the provided text below. Do NOT use any external knowledge, medical databases, or general medical information. Do NOT make up, infer, or assume any data that isn't explicitly stated in the text.
 
@@ -218,7 +218,7 @@ export async function generateDoctorSnapshot(
 }> {
   try {
     const genAI = getGeminiClient();
-    const model = genAI.getGenerativeModel({ model: "gemini-pro" });
+    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
     const prompt = `You are analyzing a health document to create a doctor snapshot. Extract ALL information ONLY from the provided text below. Do NOT use any external knowledge, medical databases, or general medical information. Do NOT make up, infer, or assume any data that isn't explicitly stated in the text.
 
@@ -390,7 +390,7 @@ export async function generateCardiologyInsights(
 }> {
   try {
     const genAI = getGeminiClient();
-    const model = genAI.getGenerativeModel({ model: "gemini-pro" });
+    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
     const prompt = `You are analyzing a health document for cardiology insights. Extract ALL information ONLY from the provided text below. Do NOT use any external knowledge, medical databases, or general medical information. Do NOT make up, infer, or assume any data that isn't explicitly stated in the text.
 
