@@ -230,12 +230,12 @@ export const demoDoctorSnapshot = {
     keyEvents: [
         {
             date: "2024-02-20",
-            type: "consultation",
+            type: "consultation" as const,
             description: "Initial cardiology consultation for hypertension management",
         },
         {
             date: "2024-03-10",
-            type: "procedure",
+            type: "procedure" as const,
             description: "Echocardiogram to assess cardiac structure and function",
         },
     ],
