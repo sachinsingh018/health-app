@@ -1,0 +1,87 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+    --primary: #0E2A24;
+    --accent-gold: #D4B77D;
+    --accent-neon: #4EFFD2;
+    --surface: #112F27;
+    --card: #0F2520;
+    --warning: #FF5A5F;
+    --yellow: #F7D774;
+}
+
+body {
+    color: #dcf2e3;
+    background: linear-gradient(to bottom, #0E2A24, #112F27);
+    font-family: 'Inter', sans-serif;
+}
+
+@layer base {
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        font-family: 'Space Grotesk', 'Sora', sans-serif;
+        font-weight: 700;
+        letter-spacing: -0.02em;
+    }
+}
+
+@layer components {
+    .btn-primary {
+        @apply rounded-full border border-accent-neon/20 text-accent-neon px-6 py-3 font-semibold transition-all duration-300;
+        @apply hover:bg-accent-neon/10 hover:shadow-neon hover:scale-[1.02];
+        @apply active:scale-95;
+    }
+
+    .btn-gold {
+        @apply rounded-full border border-accent-gold/30 text-accent-gold px-6 py-3 font-semibold transition-all duration-300;
+        @apply hover:bg-accent-gold/10 hover:shadow-gold hover:scale-[1.02];
+        @apply active:scale-95;
+    }
+
+    .card {
+        @apply bg-gradient-to-b from-card to-surface backdrop-blur-sm rounded-3xl;
+        @apply border border-accent-gold/20;
+        @apply hover:ring-2 hover:ring-accent-neon/40 transition-all duration-300;
+        @apply hover:scale-[1.02];
+    }
+
+    .card-interactive {
+        @apply card cursor-pointer;
+        @apply hover:shadow-neon-sm;
+    }
+
+    .text-gradient-mint {
+        @apply bg-gradient-to-r from-accent-neon to-primary bg-clip-text text-transparent;
+    }
+
+    .text-gradient-gold {
+        @apply bg-gradient-to-r from-accent-gold to-accent-yellow bg-clip-text text-transparent;
+    }
+}
+
+@layer utilities {
+    .text-balance {
+        text-wrap: balance;
+    }
+
+    .animate-delay-100 {
+        animation-delay: 100ms;
+    }
+
+    .animate-delay-200 {
+        animation-delay: 200ms;
+    }
+
+    .animate-delay-300 {
+        animation-delay: 300ms;
+    }
+}
