@@ -10,7 +10,7 @@ import { HiExclamationTriangle, HiChatBubbleLeftRight, HiArrowLeft, HiArrowRight
 // AI Icons (ai)
 import { AiOutlineAlert, AiOutlineSend, AiOutlineInfoCircle } from "react-icons/ai";
 // FontAwesome 6 (fa6)
-import { FaHeartPulse, FaUserDoctor, FaUserNurse, FaRegUserCircle } from "react-icons/fa6";
+import { FaHeartPulse, FaUserDoctor, FaUserNurse, FaCircleUser } from "react-icons/fa6";
 // Phosphor Icons (pi)
 import { PiRobotLight } from "react-icons/pi";
 
@@ -53,7 +53,7 @@ const iconMap: Record<string, React.ComponentType<any>> = {
     // Onboarding
     doctor: FaUserDoctor,
     nurse: FaUserNurse,
-    user: FaRegUserCircle,
+    user: FaCircleUser,
     ai: PiRobotLight,
 };
 
