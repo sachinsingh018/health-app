@@ -1,6 +1,7 @@
-import { GoogleGenerativeAI } from "@google/generative-ai";
+import { GoogleGenAI } from "@google/genai";
 
 // Initialize Gemini client
+// The client gets the API key from the environment variable `GEMINI_API_KEY`
 export function getGeminiClient() {
   const apiKey = process.env.GEMINI_API_KEY;
 
@@ -8,7 +9,7 @@ export function getGeminiClient() {
     throw new Error("GEMINI_API_KEY environment variable is not set");
   }
 
-  return new GoogleGenerativeAI(apiKey);
+  return new GoogleGenAI({});
 }
 
 // Generate patient timeline with detailed structure
@@ -55,8 +56,7 @@ export async function generatePatientTimeline(
   }>;
 }> {
   try {
-    const genAI = getGeminiClient();
-    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+    const ai = getGeminiClient();
 
     const prompt = `You are analyzing a health document. Extract ALL information ONLY from the provided text below. Do NOT use any external knowledge, medical databases, or general medical information. Do NOT make up, infer, or assume any data that isn't explicitly stated in the text.
 
@@ -161,9 +161,11 @@ IMPORTANT RULES:
 - Do not invent, infer, or assume any data that isn't explicitly in the text
 - Return empty arrays [] for categories with no data, rather than omitting them`;
 
-    const result = await model.generateContent(prompt);
-    const response = await result.response;
-    const responseText = response.text();
+    const response = await ai.models.generateContent({
+      model: "gemini-2.5-pro",
+      contents: prompt,
+    });
+    const responseText = response.text;
 
     // Try to extract JSON from the response
     const jsonMatch = responseText.match(/\{[\s\S]*\}/);
@@ -217,8 +219,7 @@ export async function generateDoctorSnapshot(
   visitPrep: string[];
 }> {
   try {
-    const genAI = getGeminiClient();
-    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+    const ai = getGeminiClient();
 
     const prompt = `You are analyzing a health document to create a doctor snapshot. Extract ALL information ONLY from the provided text below. Do NOT use any external knowledge, medical databases, or general medical information. Do NOT make up, infer, or assume any data that isn't explicitly stated in the text.
 
@@ -334,9 +335,11 @@ IMPORTANT RULES:
 - All data must come from the provided text - do not invent or infer
 - Use "not mentioned" for missing values rather than omitting fields`;
 
-    const result = await model.generateContent(prompt);
-    const response = await result.response;
-    const responseText = response.text();
+    const response = await ai.models.generateContent({
+      model: "gemini-2.5-pro",
+      contents: prompt,
+    });
+    const responseText = response.text;
 
     // Try to extract JSON from the response
     const jsonMatch = responseText.match(/\{[\s\S]*\}/);
@@ -389,8 +392,7 @@ export async function generateCardiologyInsights(
   questionsForDoctor: string[];
 }> {
   try {
-    const genAI = getGeminiClient();
-    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+    const ai = getGeminiClient();
 
     const prompt = `You are analyzing a health document for cardiology insights. Extract ALL information ONLY from the provided text below. Do NOT use any external knowledge, medical databases, or general medical information. Do NOT make up, infer, or assume any data that isn't explicitly stated in the text.
 
@@ -485,9 +487,11 @@ IMPORTANT RULES:
 - Questions should address specific concerns or findings from the text
 - Do not invent, infer, or assume data that isn't explicitly in the text`;
 
-    const result = await model.generateContent(prompt);
-    const response = await result.response;
-    const responseText = response.text();
+    const response = await ai.models.generateContent({
+      model: "gemini-2.5-pro",
+      contents: prompt,
+    });
+    const responseText = response.text;
 
     // Try to extract JSON from the response
     const jsonMatch = responseText.match(/\{[\s\S]*\}/);

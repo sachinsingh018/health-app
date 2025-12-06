@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { GoogleGenerativeAI } from "@google/generative-ai";
+import { GoogleGenAI } from "@google/genai";
 
 export async function POST(request: NextRequest) {
     try {
@@ -67,19 +67,14 @@ The assistant should:
 Respond to the user's message based on the structured health data provided above. Return your response as a JSON object with a "reply" field containing your response text.`;
 
         try {
-            // Use callGemini with JSON mode enabled
-            const genAI = getGeminiClient();
-            const model = genAI.getGenerativeModel({
-                model: "gemini-2.0-flash",
-                systemInstruction: systemPrompt,
-                generationConfig: {
-                    responseMimeType: "application/json",
-                },
+            const ai = getGeminiClient();
+            const fullPrompt = `${systemPrompt}\n\n${userPrompt}`;
+            
+            const response = await ai.models.generateContent({
+                model: "gemini-2.5-pro",
+                contents: fullPrompt,
             });
-
-            const result = await model.generateContent(userPrompt);
-            const response = await result.response;
-            const responseText = response.text();
+            const responseText = response.text;
 
             // Parse the JSON response
             let parsedResponse;
@@ -130,6 +125,7 @@ Respond to the user's message based on the structured health data provided above
 }
 
 // Helper function to get Gemini client
+// The client gets the API key from the environment variable `GEMINI_API_KEY`
 function getGeminiClient() {
     const apiKey = process.env.GEMINI_API_KEY;
 
@@ -137,5 +133,5 @@ function getGeminiClient() {
         throw new Error("GEMINI_API_KEY environment variable is not set");
     }
 
-    return new GoogleGenerativeAI(apiKey);
+    return new GoogleGenAI({});
 }

@@ -1,0 +1,41 @@
+PATIENT HEALTH SUMMARY
+
+Patient: John Doe, Age 45, Male
+
+MEDICAL HISTORY:
+- Diagnosed with hypertension in January 2024
+- Family history of heart disease (father had heart attack at 60)
+- Current smoker, 1 pack per day for 20 years
+- Sedentary lifestyle, minimal exercise
+
+CURRENT MEDICATIONS:
+- Lisinopril 10mg once daily (started January 2024)
+- Atorvastatin 20mg once daily (started January 2024)
+- Aspirin 81mg once daily
+
+LAB RESULTS (January 15, 2024):
+- Total Cholesterol: 220 mg/dL (High)
+- LDL: 145 mg/dL (High)
+- HDL: 38 mg/dL (Low)
+- Triglycerides: 180 mg/dL (High)
+- HbA1c: 6.2% (Prediabetes)
+- Blood Pressure: 148/92 mmHg (Stage 2 Hypertension)
+- Heart Rate: 78 bpm (Normal)
+
+SYMPTOMS:
+- Occasional chest discomfort during exercise (noted January 10, 2024)
+- Shortness of breath when climbing stairs (noted February 5, 2024)
+- Palpitations occasionally (noted February 15, 2024)
+
+RECENT EVENTS:
+- January 15, 2024: Annual physical exam, hypertension diagnosed
+- February 20, 2024: Cardiology consultation
+- March 10, 2024: Echocardiogram performed - results normal
+- March 10, 2024: Troponin: 0.01 ng/mL (Normal), BNP: 85 pg/mL (Normal)
+
+LIFESTYLE:
+- Exercise: Sedentary, no regular exercise routine
+- Diet: High sodium, frequent fast food
+- Stress: High work-related stress
+- Sleep: 6-7 hours per night
+

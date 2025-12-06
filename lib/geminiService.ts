@@ -1,6 +1,7 @@
-import { GoogleGenerativeAI } from "@google/generative-ai";
+import { GoogleGenAI } from "@google/genai";
 
 // Initialize Gemini client
+// The client gets the API key from the environment variable `GEMINI_API_KEY`
 function getGeminiClient() {
   const apiKey = process.env.GEMINI_API_KEY;
 
@@ -8,7 +9,7 @@ function getGeminiClient() {
     throw new Error("GEMINI_API_KEY environment variable is not set");
   }
 
-  return new GoogleGenerativeAI(apiKey);
+  return new GoogleGenAI({});
 }
 
 // Helper function to call Gemini with system and user prompts
@@ -17,18 +18,14 @@ export async function callGemini(
   userPrompt: string
 ): Promise<string> {
   try {
-    const genAI = getGeminiClient();
-    const model = genAI.getGenerativeModel({
-      model: "gemini-2.0-flash",
-      systemInstruction: systemPrompt,
-      generationConfig: {
-        responseMimeType: "application/json",
-      },
+    const ai = getGeminiClient();
+    const fullPrompt = `${systemPrompt}\n\n${userPrompt}`;
+    
+    const response = await ai.models.generateContent({
+      model: "gemini-2.5-pro",
+      contents: fullPrompt,
     });
-
-    const result = await model.generateContent(userPrompt);
-    const response = await result.response;
-    return response.text();
+    return response.text;
   } catch (error) {
     console.error("Error calling Gemini:", error);
     throw new Error(
@@ -292,15 +289,14 @@ SAFETY DISCLAIMER: This conversation is for informational purposes only and does
 - Always emphasize consulting with a cardiologist for medical decisions`;
 
   try {
-    const genAI = getGeminiClient();
-    const model = genAI.getGenerativeModel({
-      model: "gemini-2.0-flash",
-      systemInstruction: systemPrompt,
+    const ai = getGeminiClient();
+    const fullPrompt = `${systemPrompt}\n\n${userPrompt}`;
+    
+    const response = await ai.models.generateContent({
+      model: "gemini-2.5-pro",
+      contents: fullPrompt,
     });
-
-    const result = await model.generateContent(userPrompt);
-    const response = await result.response;
-    return response.text();
+    return response.text;
   } catch (error) {
     console.error("Error in general chat:", error);
     return "I apologize, but I'm having trouble processing your request right now. Please try again later or consult with your healthcare provider for immediate medical questions.";
