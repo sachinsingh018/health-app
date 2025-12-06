@@ -135,7 +135,7 @@ export default function TimelinePage() {
                             color: "rgb(220, 252, 231)", // primary-100
                             font: {
                                 size: 16,
-                                weight: "bold",
+                                weight: "bold" as const,
                             },
                         },
                     },
@@ -230,7 +230,7 @@ export default function TimelinePage() {
                             color: "rgb(220, 252, 231)", // primary-100
                             font: {
                                 size: 16,
-                                weight: "bold",
+                                weight: "bold" as const,
                             },
                         },
                     },
