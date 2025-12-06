@@ -72,7 +72,7 @@ Respond to the user's message based on the structured health data provided above
             }
 
             const fullPrompt = `${systemPrompt}\n\n${userPrompt}`;
-            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-pro:generateContent`;
+            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent`;
 
             const response = await fetch(url, {
                 method: "POST",

@@ -1,5 +1,5 @@
 // Helper function to call Gemini API directly
-async function callGeminiAPI(prompt: string, model: string = "gemini-2.5-pro"): Promise<string> {
+async function callGeminiAPI(prompt: string, model: string = "gemini-2.5-flash"): Promise<string> {
   const apiKey = process.env.GEMINI_API_KEY;
 
   if (!apiKey) {
@@ -183,7 +183,7 @@ IMPORTANT RULES:
 - Do not invent, infer, or assume any data that isn't explicitly in the text
 - Return empty arrays [] for categories with no data, rather than omitting them`;
 
-    const responseText = await callGeminiAPI(prompt, "gemini-2.5-pro");
+    const responseText = await callGeminiAPI(prompt, "gemini-2.5-flash");
 
     // Try to extract JSON from the response
     const jsonMatch = responseText.match(/\{[\s\S]*\}/);
@@ -351,7 +351,7 @@ IMPORTANT RULES:
 - All data must come from the provided text - do not invent or infer
 - Use "not mentioned" for missing values rather than omitting fields`;
 
-    const responseText = await callGeminiAPI(prompt, "gemini-2.5-pro");
+    const responseText = await callGeminiAPI(prompt, "gemini-2.5-flash");
 
     // Try to extract JSON from the response
     const jsonMatch = responseText.match(/\{[\s\S]*\}/);
@@ -497,7 +497,7 @@ IMPORTANT RULES:
 - Questions should address specific concerns or findings from the text
 - Do not invent, infer, or assume data that isn't explicitly in the text`;
 
-    const responseText = await callGeminiAPI(prompt, "gemini-2.5-pro");
+    const responseText = await callGeminiAPI(prompt, "gemini-2.5-flash");
 
     // Try to extract JSON from the response
     const jsonMatch = responseText.match(/\{[\s\S]*\}/);

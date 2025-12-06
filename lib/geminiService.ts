@@ -1,5 +1,5 @@
 // Helper function to call Gemini API directly
-async function callGeminiAPI(prompt: string, model: string = "gemini-2.5-pro"): Promise<string> {
+async function callGeminiAPI(prompt: string, model: string = "gemini-2.5-flash"): Promise<string> {
   const apiKey = process.env.GEMINI_API_KEY;
 
   if (!apiKey) {
@@ -43,7 +43,7 @@ export async function callGemini(
 ): Promise<string> {
   try {
     const fullPrompt = `${systemPrompt}\n\n${userPrompt}`;
-    return await callGeminiAPI(fullPrompt, "gemini-2.5-pro");
+    return await callGeminiAPI(fullPrompt, "gemini-2.5-flash");
   } catch (error) {
     console.error("Error calling Gemini:", error);
     throw new Error(
@@ -308,7 +308,7 @@ SAFETY DISCLAIMER: This conversation is for informational purposes only and does
 
   try {
     const fullPrompt = `${systemPrompt}\n\n${userPrompt}`;
-    return await callGeminiAPI(fullPrompt, "gemini-2.5-pro");
+    return await callGeminiAPI(fullPrompt, "gemini-2.5-flash");
   } catch (error) {
     console.error("Error in general chat:", error);
     return "I apologize, but I'm having trouble processing your request right now. Please try again later or consult with your healthcare provider for immediate medical questions.";
