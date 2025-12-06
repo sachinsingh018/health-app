@@ -2,7 +2,7 @@
 
 import { useMemo } from "react";
 // Material Icons (md)
-import { MdFavorite, MdWarningAmber, MdHealthAndSafety, MdTimeline, MdClinicalNotes, MdMedication, MdCloudUpload, MdPictureAsPdf } from "react-icons/md";
+import { MdFavorite, MdWarningAmber, MdHealthAndSafety, MdTimeline, MdDescription, MdMedication, MdCloudUpload, MdPictureAsPdf } from "react-icons/md";
 // Tabler Icons (tb)
 import { TbHeartbeat, TbTestPipe, TbActivityHeartbeat, TbUpload } from "react-icons/tb";
 // Heroicons v2 (hi2)
@@ -36,7 +36,7 @@ const iconMap: Record<string, React.ComponentType<any>> = {
 
     // Timeline
     event: MdTimeline,
-    diagnosis: MdClinicalNotes,
+    diagnosis: MdDescription,
     medication: MdMedication,
     lab: TbTestPipe,
     vitals: TbActivityHeartbeat,
