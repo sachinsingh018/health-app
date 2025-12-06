@@ -1,7 +1,6 @@
 import { GoogleGenAI } from "@google/genai";
 
 // Initialize Gemini client
-// The client gets the API key from the environment variable `GEMINI_API_KEY`
 function getGeminiClient() {
   const apiKey = process.env.GEMINI_API_KEY;
 
@@ -9,7 +8,7 @@ function getGeminiClient() {
     throw new Error("GEMINI_API_KEY environment variable is not set");
   }
 
-  return new GoogleGenAI({});
+  return new GoogleGenAI({ apiKey });
 }
 
 // Helper function to call Gemini with system and user prompts
@@ -20,7 +19,7 @@ export async function callGemini(
   try {
     const ai = getGeminiClient();
     const fullPrompt = `${systemPrompt}\n\n${userPrompt}`;
-    
+
     const response = await ai.models.generateContent({
       model: "gemini-2.5-pro",
       contents: fullPrompt,
@@ -291,7 +290,7 @@ SAFETY DISCLAIMER: This conversation is for informational purposes only and does
   try {
     const ai = getGeminiClient();
     const fullPrompt = `${systemPrompt}\n\n${userPrompt}`;
-    
+
     const response = await ai.models.generateContent({
       model: "gemini-2.5-pro",
       contents: fullPrompt,

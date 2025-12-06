@@ -1,7 +1,6 @@
 import { GoogleGenAI } from "@google/genai";
 
 // Initialize Gemini client
-// The client gets the API key from the environment variable `GEMINI_API_KEY`
 export function getGeminiClient() {
   const apiKey = process.env.GEMINI_API_KEY;
 
@@ -9,7 +8,7 @@ export function getGeminiClient() {
     throw new Error("GEMINI_API_KEY environment variable is not set");
   }
 
-  return new GoogleGenAI({});
+  return new GoogleGenAI({ apiKey });
 }
 
 // Generate patient timeline with detailed structure
