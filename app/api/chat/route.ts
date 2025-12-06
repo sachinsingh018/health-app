@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from "next/server";
-import { GoogleGenAI } from "@google/genai";
 
 export async function POST(request: NextRequest) {
     try {
@@ -67,14 +66,40 @@ The assistant should:
 Respond to the user's message based on the structured health data provided above. Return your response as a JSON object with a "reply" field containing your response text.`;
 
         try {
-            const ai = getGeminiClient();
-            const fullPrompt = `${systemPrompt}\n\n${userPrompt}`;
+            const apiKey = process.env.GEMINI_API_KEY;
+            if (!apiKey) {
+                throw new Error("GEMINI_API_KEY environment variable is not set");
+            }
 
-            const response = await ai.models.generateContent({
-                model: "gemini-2.5-pro",
-                contents: fullPrompt,
+            const fullPrompt = `${systemPrompt}\n\n${userPrompt}`;
+            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-pro:generateContent`;
+
+            const response = await fetch(url, {
+                method: "POST",
+                headers: {
+                    "x-goog-api-key": apiKey,
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    contents: [
+                        {
+                            parts: [
+                                {
+                                    text: fullPrompt,
+                                },
+                            ],
+                        },
+                    ],
+                }),
             });
-            const responseText = response.text;
+
+            if (!response.ok) {
+                const errorText = await response.text();
+                throw new Error(`Gemini API error: ${response.status} ${response.statusText} - ${errorText}`);
+            }
+
+            const data = await response.json();
+            const responseText = data.candidates?.[0]?.content?.parts?.[0]?.text || "";
 
             // Parse the JSON response
             let parsedResponse;
@@ -124,13 +149,3 @@ Respond to the user's message based on the structured health data provided above
     }
 }
 
-// Helper function to get Gemini client
-function getGeminiClient() {
-    const apiKey = process.env.GEMINI_API_KEY;
-
-    if (!apiKey) {
-        throw new Error("GEMINI_API_KEY environment variable is not set");
-    }
-
-    return new GoogleGenAI({ apiKey });
-}

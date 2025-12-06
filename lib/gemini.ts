@@ -1,14 +1,39 @@
-import { GoogleGenAI } from "@google/genai";
-
-// Initialize Gemini client
-export function getGeminiClient() {
+// Helper function to call Gemini API directly
+async function callGeminiAPI(prompt: string, model: string = "gemini-2.5-pro"): Promise<string> {
   const apiKey = process.env.GEMINI_API_KEY;
 
   if (!apiKey) {
     throw new Error("GEMINI_API_KEY environment variable is not set");
   }
 
-  return new GoogleGenAI({ apiKey });
+  const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`;
+
+  const response = await fetch(url, {
+    method: "POST",
+    headers: {
+      "x-goog-api-key": apiKey,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      contents: [
+        {
+          parts: [
+            {
+              text: prompt,
+            },
+          ],
+        },
+      ],
+    }),
+  });
+
+  if (!response.ok) {
+    const errorText = await response.text();
+    throw new Error(`Gemini API error: ${response.status} ${response.statusText} - ${errorText}`);
+  }
+
+  const data = await response.json();
+  return data.candidates?.[0]?.content?.parts?.[0]?.text || "";
 }
 
 // Generate patient timeline with detailed structure
@@ -160,11 +185,7 @@ IMPORTANT RULES:
 - Do not invent, infer, or assume any data that isn't explicitly in the text
 - Return empty arrays [] for categories with no data, rather than omitting them`;
 
-    const response = await ai.models.generateContent({
-      model: "gemini-2.5-pro",
-      contents: prompt,
-    });
-    const responseText = response.text;
+    const responseText = await callGeminiAPI(prompt, "gemini-2.5-pro");
 
     // Try to extract JSON from the response
     const jsonMatch = responseText.match(/\{[\s\S]*\}/);
@@ -334,11 +355,7 @@ IMPORTANT RULES:
 - All data must come from the provided text - do not invent or infer
 - Use "not mentioned" for missing values rather than omitting fields`;
 
-    const response = await ai.models.generateContent({
-      model: "gemini-2.5-pro",
-      contents: prompt,
-    });
-    const responseText = response.text;
+    const responseText = await callGeminiAPI(prompt, "gemini-2.5-pro");
 
     // Try to extract JSON from the response
     const jsonMatch = responseText.match(/\{[\s\S]*\}/);
@@ -486,11 +503,7 @@ IMPORTANT RULES:
 - Questions should address specific concerns or findings from the text
 - Do not invent, infer, or assume data that isn't explicitly in the text`;
 
-    const response = await ai.models.generateContent({
-      model: "gemini-2.5-pro",
-      contents: prompt,
-    });
-    const responseText = response.text;
+    const responseText = await callGeminiAPI(prompt, "gemini-2.5-pro");
 
     // Try to extract JSON from the response
     const jsonMatch = responseText.match(/\{[\s\S]*\}/);

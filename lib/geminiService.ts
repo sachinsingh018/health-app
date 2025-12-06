@@ -1,14 +1,39 @@
-import { GoogleGenAI } from "@google/genai";
-
-// Initialize Gemini client
-function getGeminiClient() {
+// Helper function to call Gemini API directly
+async function callGeminiAPI(prompt: string, model: string = "gemini-2.5-pro"): Promise<string> {
   const apiKey = process.env.GEMINI_API_KEY;
 
   if (!apiKey) {
     throw new Error("GEMINI_API_KEY environment variable is not set");
   }
 
-  return new GoogleGenAI({ apiKey });
+  const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`;
+
+  const response = await fetch(url, {
+    method: "POST",
+    headers: {
+      "x-goog-api-key": apiKey,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      contents: [
+        {
+          parts: [
+            {
+              text: prompt,
+            },
+          ],
+        },
+      ],
+    }),
+  });
+
+  if (!response.ok) {
+    const errorText = await response.text();
+    throw new Error(`Gemini API error: ${response.status} ${response.statusText} - ${errorText}`);
+  }
+
+  const data = await response.json();
+  return data.candidates?.[0]?.content?.parts?.[0]?.text || "";
 }
 
 // Helper function to call Gemini with system and user prompts
@@ -17,14 +42,8 @@ export async function callGemini(
   userPrompt: string
 ): Promise<string> {
   try {
-    const ai = getGeminiClient();
     const fullPrompt = `${systemPrompt}\n\n${userPrompt}`;
-
-    const response = await ai.models.generateContent({
-      model: "gemini-2.5-pro",
-      contents: fullPrompt,
-    });
-    return response.text;
+    return await callGeminiAPI(fullPrompt, "gemini-2.5-pro");
   } catch (error) {
     console.error("Error calling Gemini:", error);
     throw new Error(
@@ -288,14 +307,8 @@ SAFETY DISCLAIMER: This conversation is for informational purposes only and does
 - Always emphasize consulting with a cardiologist for medical decisions`;
 
   try {
-    const ai = getGeminiClient();
     const fullPrompt = `${systemPrompt}\n\n${userPrompt}`;
-
-    const response = await ai.models.generateContent({
-      model: "gemini-2.5-pro",
-      contents: fullPrompt,
-    });
-    return response.text;
+    return await callGeminiAPI(fullPrompt, "gemini-2.5-pro");
   } catch (error) {
     console.error("Error in general chat:", error);
     return "I apologize, but I'm having trouble processing your request right now. Please try again later or consult with your healthcare provider for immediate medical questions.";
