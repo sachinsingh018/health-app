@@ -259,31 +259,31 @@ export const demoCardiologyInsights = {
     possibleConditions: [
         {
             condition: "Hypertensive Heart Disease",
-            confidence: "medium",
+            confidence: "medium" as const,
             evidence: "Persistent elevated BP readings, chest discomfort with exertion",
         },
         {
             condition: "Dyslipidemia",
-            confidence: "high",
+            confidence: "high" as const,
             evidence: "Elevated LDL (145 mg/dL), low HDL (38 mg/dL)",
         },
     ],
     redFlags: [
         {
             flag: "Chest Pain with Exertion",
-            severity: "high",
+            severity: "high" as const,
             description: "Chest discomfort during physical activity may indicate cardiac ischemia",
             action: "Urgent cardiology evaluation recommended, consider stress test",
         },
         {
             flag: "Elevated LDL Cholesterol",
-            severity: "medium",
+            severity: "medium" as const,
             description: "LDL of 145 mg/dL significantly above target (<100 mg/dL)",
             action: "Continue statin therapy, consider dose adjustment, dietary counseling",
         },
         {
             flag: "Shortness of Breath",
-            severity: "medium",
+            severity: "medium" as const,
             description: "SOB with minimal exertion (climbing stairs)",
             action: "Monitor closely, consider further cardiac workup if persists",
         },
