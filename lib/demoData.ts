@@ -134,19 +134,19 @@ export const demoPatientTimeline = {
     lifestyle: [
         {
             date: "2024-01-15",
-            type: "exercise",
+            type: "exercise" as const,
             value: "Sedentary lifestyle, minimal physical activity",
             notes: "Works desk job, no regular exercise routine",
         },
         {
             date: "2024-01-15",
-            type: "diet",
+            type: "diet" as const,
             value: "High sodium diet",
             notes: "Frequent fast food consumption",
         },
         {
             date: "2024-01-15",
-            type: "stress",
+            type: "stress" as const,
             value: "High stress levels",
             notes: "Work-related stress, long hours",
         },
